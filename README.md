@@ -2,6 +2,11 @@
 
 Simple Django API for a generic collection agency to ingest data files provided by their clients.
 
+A demo is deployed at http://aktos.fun:4005.
+
+Go to http://aktos.fun:4005/upload and use the file field in the form to
+populate the database from a CSV file.
+
 ## How to run
 
 #### Using docker-compose

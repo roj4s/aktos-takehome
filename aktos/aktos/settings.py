@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-9nu#9rk^#g$=37n0qv*!_*t_sy6mvuh9o0_@=#w)_g16--34-h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["aktos.fun", "localhost"]
 
 
 # Application definition
