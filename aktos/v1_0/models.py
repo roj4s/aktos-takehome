@@ -1,7 +1,7 @@
-from django.core import validators
 from django.db import models
 from django.core.validators import MinLengthValidator
 from uuid import uuid4
+from django.utils.timezone import now
 
 class StatusChoises(models.IntegerChoices):
     """List of balance allowed status"""
@@ -14,6 +14,12 @@ class Consumer(models.Model):
     ssn = models.CharField(max_length=11, primary_key=True, editable=True, validators=[MinLengthValidator(11)])
     name = models.TextField()
     address = models.TextField()
+    created = models.DateTimeField(unique=True, default=now, editable=False)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["created"], name="consumer_created_idx")
+        ]
 
 class ConsumerBalance(models.Model):
     """Consumer balance info"""
@@ -25,5 +31,8 @@ class ConsumerBalance(models.Model):
         Consumer,
         on_delete=models.CASCADE,
     )
-
-
+    created = models.DateTimeField(unique=True, default=now, editable=False)
+    class Meta:
+        indexes = [
+            models.Index(fields=["created"], name="account_created_idx"),
+        ]

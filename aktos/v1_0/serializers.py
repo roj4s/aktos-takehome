@@ -5,7 +5,7 @@ from .models import Consumer, ConsumerBalance, StatusChoises
 class ConsumerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Consumer
-        fields = ['ssn', 'name', 'address']
+        fields = ['ssn', 'name', 'address', 'created']
 
 
 class AccountGetSerializer(serializers.ModelSerializer):
@@ -16,7 +16,7 @@ class AccountGetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ConsumerBalance
-        fields = ("id", "client_reference_no", "balance", "status", "consumer_ssn", "consumer_name", "consumer_address")
+        fields = ("id", "client_reference_no", "balance", "status", "consumer_ssn", "consumer_name", "consumer_address", "created")
 
     def get_status(self, instance):
         return StatusChoises(instance.status).name
@@ -25,7 +25,7 @@ class AccountGetSerializer(serializers.ModelSerializer):
 class AccountDefaultSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ConsumerBalance
-        fields = ("id", "client_reference_no", "balance", "status", "consumer")
+        fields = ("id", "client_reference_no", "balance", "status", "consumer", "created")
 
 
 class CsvUploadSerializer(serializers.Serializer):
