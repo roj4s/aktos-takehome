@@ -20,3 +20,9 @@ Simple Django API for a generic collection agency to ingest data files provided 
 - Activate the environment
 - Run migrations python manage.py migrate
 - Run server python manage.py runserver
+
+## Running tests
+
+- After the virtual env is created and activated move to same folder
+  where pytest.ini and manage.py resides
+- Now run pytest as ussual

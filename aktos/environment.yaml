@@ -28,13 +28,28 @@ dependencies:
   - xz=5.2.6=h166bdaf_0
   - pip:
     - asgiref==3.8.1
+    - coverage==7.4.4
     - django==4.2.11
     - django-filter==24.2
     - djangorestframework==3.15.1
+    - exceptiongroup==1.2.0
+    - factory-boy==3.3.0
+    - faker==24.4.0
     - importlib-metadata==7.1.0
+    - inflection==0.5.1
+    - iniconfig==2.0.0
     - markdown==3.6
+    - packaging==24.0
+    - pluggy==1.4.0
     - psycopg2-binary==2.9.9
+    - pytest==8.1.1
+    - pytest-cov==5.0.0
+    - pytest-django==4.8.0
+    - pytest-factoryboy==2.7.0
+    - python-dateutil==2.9.0.post0
+    - six==1.16.0
     - sqlparse==0.4.4
+    - tomli==2.0.1
     - typing-extensions==4.10.0
     - zipp==3.18.1
 prefix: /home/rojas/miniconda3/envs/aktos
