@@ -1,8 +1,10 @@
 from django.db.models import QuerySet
-from rest_framework import permissions, viewsets
-from .serializers import AccountDefaultSerializer, AccountGetSerializer, ConsumerSerializer
+from rest_framework import generics, permissions, status, viewsets
+from rest_framework.views import Response
+from .serializers import AccountDefaultSerializer, AccountGetSerializer, ConsumerSerializer, CsvUploadSerializer
 from .models import Consumer, ConsumerBalance, StatusChoises
 from typing import Any, Type, Union
+import pandas as pd
 
 
 class ConsumerViewSet(viewsets.ModelViewSet):
@@ -47,3 +49,25 @@ class AccountViewSet(viewsets.ModelViewSet):
 
         return query.filter()
 
+class UploadCsvView(generics.CreateAPIView):
+    serializer_class = CsvUploadSerializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        file = serializer.validated_data['file']
+        reader = pd.read_csv(file)
+        status_map = {}
+
+        for choice in StatusChoises.choices:
+            key = "_".join(choice[1].upper().split(" "))
+            status_map[key] = choice[0]
+
+        for _, row in reader.iterrows():
+            consumer_ssn = row['ssn']
+            consumer = Consumer.objects.filter(ssn=consumer_ssn).first()
+            if consumer is None:
+                consumer = Consumer.objects.create(name=row["consumer name"], ssn=row["ssn"], address=row["consumer address"])
+            ConsumerBalance.objects.create(client_reference_no=row["client reference no"], balance=float(row["balance"]), status=status_map[row["status"]], consumer=consumer)
+
+        return Response({"status": "sucess"}, status.HTTP_201_CREATED)

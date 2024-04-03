@@ -26,3 +26,7 @@ class AccountDefaultSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ConsumerBalance
         fields = ("id", "client_reference_no", "balance", "status", "consumer")
+
+
+class CsvUploadSerializer(serializers.Serializer):
+    file = serializers.FileField()
