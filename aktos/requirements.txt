@@ -6,6 +6,7 @@ importlib_metadata==7.1.0
 jedi==0.17.2
 Markdown==3.6
 parso==0.7.1
+psycopg2-binary==2.9.9
 pyls-black==0.4.7
 python-jsonrpc-server==0.4.0
 python-language-server==0.36.2

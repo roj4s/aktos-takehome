@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  aktos-db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=aktos
+    ports:
+      - "5434:5432"
+
+  aktos-api:
+    build:
+      context: ./aktos
+    container_name: aktos-api
+    environment:
+      - DATABASE_NAME=aktos
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=pass
+      - DATABASE_HOST=aktos-db
+      - DATABASE_PORT=5432
+    volumes:
+      - ./aktos:/app
+    ports:
+      - "4005:4005"
+    depends_on:
+      - aktos-db
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:4005"
